@@ -12,11 +12,12 @@ import java.util.Arrays;
 public class NoSoHelloWorld
 {
     public static void main( String[] args ) throws IllegalAccessException, NoSuchFieldException {
+        String oldString = "Hello World";
+        String newString = "Not so fast";
         VarHandle VALUE = MethodHandles.privateLookupIn(String.class, MethodHandles.lookup()).findVarHandle(String.class,"value", byte[].class);
-        Object hw = VALUE.get("Hello World!");
-        Object oops = VALUE.get("Opps!");
+        Object hw = VALUE.get(oldString);
+        Object oops = VALUE.get(newString);
         System.arraycopy(oops,0, hw, 0, Array.getLength(oops));
-       // VALUE.set("Hello World!", VALUE.get("Opps!"));
-        System.out.println("Hello World!");
+        System.out.println(oldString);
     }
 }
